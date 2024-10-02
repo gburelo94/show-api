@@ -15,7 +15,7 @@ public class Messages {
 
     public static final String DATES_INVALID = "No se pudo crear el evento porque una de las fechas no es valida.";
 
-    public static final String NUMBER_TICKETS_INVALID = "No se puedo crear el evento porque el numero minimo de boletos por es 1 y maximo 300.";
+    public static final String NUMBER_TICKETS_INVALID = "No se puedo crear el evento porque el numero minimo de boletos es 1 y maximo 300.";
 
     public static final String PURCHASE_SUCCESSFUL = "Compra realizada exitosamente.";
 

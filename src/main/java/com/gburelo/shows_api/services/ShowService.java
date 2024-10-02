@@ -6,8 +6,12 @@ import com.gburelo.shows_api.domain.entities.Ticket;
 import com.gburelo.shows_api.domain.repositories.ShowRepository;
 import com.gburelo.shows_api.domain.repositories.TicketRepository;
 import com.gburelo.shows_api.utilities.ApiResponse;
+import com.gburelo.shows_api.utilities.Pagination;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +26,22 @@ public class ShowService {
 
     @Autowired private ShowRepository showRepository;
     @Autowired private TicketRepository ticketRepository;
+
+    public ApiResponse getShows(Pagination request){
+
+        Page<Show> shows = showRepository.findAll(
+                PageRequest.of(
+                        request.getPage(),
+                        request.getSize(),
+                        Sort.by(
+                                Sort.Direction.DESC,
+                                "updated_at")));
+
+        return ApiResponse.builder()
+                .status(HttpStatus.OK.value())
+                .body(shows.getContent())
+                .build();
+    }
 
     /**
      * Metodo para crear un nuevo evento.
@@ -110,9 +130,9 @@ public class ShowService {
 
         if (start.isBefore(today)) {
             areDatesValid = false;
-        } else if (start.isBefore(end)) {
-            areDatesValid = false;
         } else if (end.isBefore(today)) {
+            areDatesValid = false;
+        } else if(end.isBefore(start)) {
             areDatesValid = false;
         }
 

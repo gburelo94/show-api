@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,10 +20,4 @@ public class Redeemed {
 
     @Column(name = "redemption_code", unique = true)
     private String redemptionCode;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
 }
